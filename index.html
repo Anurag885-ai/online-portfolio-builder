@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portfolio Builder</title>
+</head>
+<body>
+  <h1>Portfolio Builder Frontend</h1>
+  <form id="portfolioForm">
+    <input id="name" placeholder="Your Name"><br>
+    <input id="skills" placeholder="Skills"><br>
+    <button type="button" onclick="submitForm()">Preview</button>
+  </form>
+  <div id="preview"></div>
+  <a id="download" href="http://localhost:8080/api/download">Download ZIP</a>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById("name").value;
+      const skills = document.getElementById("skills").value;
+      fetch("http://localhost:8080/api/preview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, skills })
+      })
+      .then(res => res.text())
+      .then(html => document.getElementById("preview").innerHTML = html);
+    }
+  </script>
+</body>
+</html>
