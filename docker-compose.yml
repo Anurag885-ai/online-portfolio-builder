@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: portfolio
+    ports:
+      - "3306:3306"
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
